@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Consulta CNPJ 28.376.254/0001‑28</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    button { margin: 5px; padding: 10px 15px; }
+    #output { margin-top: 20px; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <h1>Consulta CNPJ 28.376.254/0001‑28</h1>
+  <button id="btnDados">Dados Cadastrais</button>
+  <button id="btnEndereco">Endereço</button>
+  <button id="btnSocios">Sócios</button>
+  <button id="btnCNAE">Atividades Econômicas</button>
+
+  <div id="output">Clique em um botão acima para ver os dados.</div>
+
+  <script>
+    // Exemplo de dados (baseados nos fontes que encontramos)
+    const dados = {
+      dadosCadastrais: {
+        razaoSocial: "RUDNIK COMERCIO VAREJISTA E ATACADISTA DE MAQUINAS AGRICOLAS LTDA",
+        nomeFantasia: "Rudnik Soluções e Tecnologia",
+        cnpj: "28.376.254/0001‑28",
+        situacao: "Ativa",
+        abertura: "09/08/2017",
+        naturezaJuridica: "Sociedade Empresária Limitada",
+        capitalSocial: "R$ 500.000,00"
+      },
+      endereco: {
+        logradouro: "Av Bruno Pieczarka, 944",
+        bairro: "Centro",
+        cidade: "Santa Terezinha",
+        uf: "SC",
+        cep: "89199-000",
+        telefone: "(47) 3556-0018",
+        email: "exemplo@rudniksolucoes.com.br"
+      },
+      socios: [
+        { nome: "Elcio Rudnik", cargo: "Sócio‑Administrador" }
+      ],
+      cnaes: {
+        principal: "47.89‑0‑99 – Comércio varejista de outros produtos não especificados anteriormente",
+        secundarias: [
+          "—"
+        ]
+      }
+    };
+
+    // Função para mostrar dados
+    function mostrarDados(tipo) {
+      let texto = "";
+      const obj = dados[tipo];
+      if (!obj) { texto = "Nenhum dado disponível."; }
+      else if (Array.isArray(obj)) {
+        texto = obj.map((s, i) => \`Sócio \${i+1}: \${s.nome} — \${s.cargo}\`).join("\\n");
+      } else if (typeof obj === 'object') {
+        texto = Object.entries(obj).map(([k, v]) => \`\${k}: \${v}\`).join("\\n");
+      } else {
+        texto = obj.toString();
+      }
+      document.getElementById("output").textContent = texto;
+    }
+
+    document.getElementById("btnDados").onclick = () => mostrarDados("dadosCadastrais");
+    document.getElementById("btnEndereco").onclick = () => mostrarDados("endereco");
+    document.getElementById("btnSocios").onclick = () => mostrarDados("socios");
+    document.getElementById("btnCNAE").onclick = () => mostrarDados("cnaes");
+  </script>
+</body>
+</html>
